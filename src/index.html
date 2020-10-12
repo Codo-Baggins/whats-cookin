@@ -2,10 +2,58 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Whats Cookin</title>
+    <link rel="stylesheet" type="text/css" href="styles.css"></link>
+    <title>What's Cookin'?</title>
   </head>
   <body>
-    <h1>Whats Cookin</h1>
+    
+    <nav>
+
+      <section>
+        <form>
+          <select class="users">
+          </select>
+        </form>
+      </section>
+
+      <section>
+        <h1>What's Cookin?</h1>
+      </section> 
+
+      <section>
+        <button class="favorites-button nav-buttons">My Favorites</button>
+        <button class="to-cook-button nav-buttons">Recipes To Cook</button>
+      </section>
+    </nav>
+    <main>
+      <section class="search-fields">
+        <form>
+          <input type="text">
+          <input type="submit">
+        </form>
+        <form>
+          <select class="tags">
+          </select>
+        </form>
+      </section>
+
+      <section class="displayed-recipes">
+          <div class="recipe">
+            <img class="recipe-image" src="https://spoonacular.com/recipeImages/595736-556x370.jpg">
+            <section class="recipe-options">
+              <button type="checkbox">
+
+              </button>
+              <button>
+                Recipe Name
+              </button>
+              <button type="checkbox">
+
+              </button>
+            </section>
+          </div>
+      </section>
+    </main>
 
     <script type="text/javascript" src="../data/users.js"></script>
     <script type="text/javascript" src="../data/recipes.js"></script>
