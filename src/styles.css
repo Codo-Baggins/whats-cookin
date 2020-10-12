@@ -1,0 +1,55 @@
+/* ~~~~~~~~~~~~~~~~~~~ HEAD ~~~~~~~~~~~~~~~~~~ */
+nav {
+    display: flex;
+    justify-content: space-between;
+}
+
+h1 {
+    font-size: 4em;
+}
+
+.nav-buttons {
+    color: blue;
+    border: none;
+    background: none;
+    text-decoration: underline;
+}
+
+/* ~~~~~~~~~~~~~~~~~~~ MAIN SECTION ~~~~~~~~~~~~~~~~~~ */
+main {
+    display: flex;
+    flex-direction: column;
+}
+
+.search-fields {
+    display: flex;
+    justify-content: space-between;
+    padding: 2em 3em;
+}
+
+/* ~~~~~~~~~~~~~~~~~~~ RECIPE SECTION ~~~~~~~~~~~~~~~~~~ */
+.recipe {
+    display: flex;
+    flex-direction: column;
+    height: 20em;
+    width: 15em;
+    border: solid blue 0.3em;
+}
+
+.recipe-image{
+    height: 15em;
+    width: 15em;
+}
+
+.recipe-options {
+    display: flex;
+    justify-content: space-between;
+    margin: 1em 0em;
+}
+
+#recipe-name {
+    color: blue;
+    border: none;
+    background: none;
+    text-decoration: underline;
+}
