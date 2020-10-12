@@ -1,3 +1,4 @@
+/* ~~~~~~~~~~~~~~~~~~~ HEAD ~~~~~~~~~~~~~~~~~~ */
 nav {
     display: flex;
     justify-content: space-between;
@@ -6,6 +7,7 @@ nav {
 h1 {
     font-size: 4em;
 }
+
 .nav-buttons {
     color: blue;
     border: none;
@@ -13,16 +15,19 @@ h1 {
     text-decoration: underline;
 }
 
+/* ~~~~~~~~~~~~~~~~~~~ MAIN SECTION ~~~~~~~~~~~~~~~~~~ */
 main {
     display: flex;
     flex-direction: column;
 }
+
 .search-fields {
     display: flex;
     justify-content: space-between;
     padding: 2em 3em;
 }
 
+/* ~~~~~~~~~~~~~~~~~~~ RECIPE SECTION ~~~~~~~~~~~~~~~~~~ */
 .recipe {
     display: flex;
     flex-direction: column;
@@ -40,4 +45,11 @@ main {
     display: flex;
     justify-content: space-between;
     margin: 1em 0em;
+}
+
+#recipe-name {
+    color: blue;
+    border: none;
+    background: none;
+    text-decoration: underline;
 }

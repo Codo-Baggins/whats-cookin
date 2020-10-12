@@ -12,6 +12,7 @@
       <section>
         <form>
           <select class="users">
+            <option value="select">Select</option>
           </select>
         </form>
       </section>
@@ -33,6 +34,7 @@
         </form>
         <form>
           <select class="tags">
+            <option value="select-tag">Select Tag</option>
           </select>
         </form>
       </section>
@@ -40,17 +42,15 @@
       <section class="displayed-recipes">
           <div class="recipe">
             <img class="recipe-image" src="https://spoonacular.com/recipeImages/595736-556x370.jpg">
-            <section class="recipe-options">
-              <button type="checkbox">
+            <form class="recipe-options">
+              <input type="checkbox" id="template-recipe" name="example-recipe" value="example-food">
 
-              </button>
-              <button>
+              <button id="recipe-name">
                 Recipe Name
               </button>
-              <button type="checkbox">
+              <input type="checkbox">
 
-              </button>
-            </section>
+            </form>
           </div>
       </section>
     </main>
