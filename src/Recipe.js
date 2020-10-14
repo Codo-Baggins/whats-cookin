@@ -12,8 +12,8 @@ class Recipe {
     let totalCost = 0;
     ingredients.forEach(ingredient => {
       ingredientsData.find(requiredIngredient => {
-        if(requiredIngredient.id === ingredient.id) {
-          totalCost = (totalCost + requiredIngredient.estimatedCostInCents);
+        if (requiredIngredient.id === ingredient.id) {
+          totalCost = (totalCost + requiredIngredient.estimatedCostInCents * ingredient.quantity.amount);
           return totalCost;
         }
       });
