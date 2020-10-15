@@ -1,16 +1,14 @@
 const chai = require('chai');
 const expect = chai.expect;
 
-const User = require('../src/User');
 const Recipe = require('../src/Recipe');
 const ingredientsData = require('../data/ingredients');
 
-describe.only('User', () => {
-  let user, recipe;
-
+describe('User', () => {
+  let recipe;
+  
   beforeEach(function() {
-      user = new User(10010, 'Aaron', ['cheese', 'crackers']);
-      recipe = new Recipe(17, 'string of image', [{
+    recipe = new Recipe(17, 'string of image', [{
         "id": 20081,
         "quantity": {
           "amount": 1.5,
@@ -102,7 +100,7 @@ describe.only('User', () => {
   it('should calculate the cost of the recipe', () => {
     const ingredientsCost = recipe.calculateRecipeCost(recipe.ingredients, ingredientsData)
 
-    expect(ingredientsCost).to.equal(7.24)
+    expect(ingredientsCost).to.equal(5.04)
   });
 
   it('should provide necessary instructions', () => {
