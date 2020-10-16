@@ -24,6 +24,18 @@ class Recipe {
   returnInstructions() {
     return this.instructions;
   }
+
+  // provideIDAndAmount() {
+  //   this.ingredients.reduce((requiredIngredients, ingredient) => {
+  //     let newVariable = {};
+  //     newVariable['id'] = ingredient.id
+  //     newVariable['amount'] = ingredient.quantity.amount
+  //     return requiredIngredients.push(newVariable);
+  //   }, [])
+  // }
 }
 
-module.exports = Recipe;
+
+if (typeof module !== 'undefined') {
+  module.exports = Recipe;
+}
