@@ -16,9 +16,11 @@ class Pantry {
         //     return stockedIngredient.ingredient === ingredient.id
         let pantryItems = recipe.ingredients.filter()
         }
-        return pantryItems 
-    }
+        
+    
 }
 
 
-module.exports = Pantry;
+if (typeof module !== 'undefined') {
+    module.exports = Pantry;
+  }
