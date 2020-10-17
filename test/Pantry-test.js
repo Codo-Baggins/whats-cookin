@@ -2,177 +2,46 @@ const chai = require('chai');
 const expect = chai.expect;
 
 const Pantry = require('../src/Pantry');
+const User = require('../src/User');
 const Recipe = require('../src/Recipe');
+const recipeTestData = require('../test/Recipe-test-data');
+const pantryTestData = require('../test/Pantry-test-data');
 
-describe('Pantry', () => {
-let pantry;
-let recipe;
 
-    beforeEach(function() {
-        pantry = new Pantry([
-        {
-            "ingredient": 11477,
-            "amount": 4
-        },
-        {
-        "ingredient": 11297,
-        "amount": 4
-        },
-        {
-        "ingredient": 1082047,
-        "amount": 10
-        }]);
-        
-        recipe = [
-            {
-              "id": 595736,
-              "image": "https://spoonacular.com/recipeImages/595736-556x370.jpg",
-              "ingredients": [
-                {
-                  "id": 20081,
-                  "quantity": {
-                    "amount": 1.5,
-                    "unit": "c"
-                  }
-                },
-                {
-                  "id": 18372,
-                  "quantity": {
-                    "amount": 0.5,
-                    "unit": "tsp"
-                  }
-                },
-                {
-                  "id": 1123,
-                  "quantity": {
-                    "amount": 1,
-                    "unit": "large"
-                  }
-                },
-                {
-                  "id": 19335,
-                  "quantity": {
-                    "amount": 0.5,
-                    "unit": "c"
-                  }
-                },
-                {
-                  "id": 19206,
-                  "quantity": {
-                    "amount": 3,
-                    "unit": "Tbsp"
-                  }
-                },
-                {
-                  "id": 19334,
-                  "quantity": {
-                    "amount": 0.5,
-                    "unit": "c"
-                  }
-                },
-                {
-                  "id": 2047,
-                  "quantity": {
-                    "amount": 0.5,
-                    "unit": "tsp"
-                  }
-                },
-                {
-                  "id": 1012047,
-                  "quantity": {
-                    "amount": 24,
-                    "unit": "servings"
-                  }
-                },
-                {
-                  "id": 10019903,
-                  "quantity": {
-                    "amount": 2,
-                    "unit": "c"
-                  }
-                },
-                {
-                  "id": 1145,
-                  "quantity": {
-                    "amount": 0.5,
-                    "unit": "c"
-                  }
-                },
-                {
-                  "id": 2050,
-                  "quantity": {
-                    "amount": 0.5,
-                    "unit": "tsp"
-                  }
-                }
-              ],
-              "instructions": [
-                {
-                  "instruction": "In a large mixing bowl, whisk together the dry ingredients (flour, pudding mix, soda and salt). Set aside.In a large mixing bowl of a stand mixer, cream butter for 30 seconds. Gradually add granulated sugar and brown sugar and cream until light and fluffy.",
-                  "number": 1
-                },
-                {
-                  "instruction": "Add egg and vanilla and mix until combined.",
-                  "number": 2
-                },
-                {
-                  "instruction": "Add dry ingredients and mix on low just until incorporated. Stir in chocolate chips.Scoop the dough into 1,5 tablespoon size balls and place on a plate or sheet. Cover with saran wrap and chill at least 2 hours or overnight.When ready to bake, preheat oven to 350 degrees.",
-                  "number": 3
-                },
-                {
-                  "instruction": "Place the cookie dough balls into ungreased muffin pan. Sprinkle with sea salt.",
-                  "number": 4
-                },
-                {
-                  "instruction": "Bake for 9 to 10 minutes, or until you see the edges start to brown.",
-                  "number": 5
-                },
-                {
-                  "instruction": "Remove the pan from the oven and let sit for 10 minutes before removing onto a cooling rack.Top with ice cream and a drizzle of chocolate sauce.",
-                  "number": 6
-                }
-              ],
-              "name": "Loaded Chocolate Chip Pudding Cookie Cups",
-              "tags": [
-                "antipasti",
-                "starter",
-                "snack",
-                "appetizer",
-                "antipasto",
-                "hor d'oeuvre"
-              ]
-            }]
-    });
+describe.only('Pantry', () => {
+  let user, pantry, recipe1, recipe2;
 
-    it('should be a function', () => {
-        expect(Pantry).to.be.a('function');
-    });
+  beforeEach(function() {
+    user = new User(pantryTestData[0].id, pantryTestData[0].name, pantryTestData[0].pantry);
+    pantry = new Pantry(user.pantry);
+    recipe1 = new Recipe(recipeTestData[0].id, recipeTestData[0].image, recipeTestData[0].ingredients, recipeTestData[0].instructions, recipeTestData[0].name, recipeTestData[0].tags);
+    recipe2 = new Recipe(recipeTestData[1].id, recipeTestData[1].image, recipeTestData[1].ingredients, recipeTestData[1].instructions, recipeTestData[1].name, recipeTestData[1].tags);
+  });
 
-    it('should be an instance of Pantry', () => {
-        expect(pantry).to.be.instanceOf(Pantry);
-    });
+  it('should be a function', () => {
+    expect(Pantry).to.be.a('function');
+  });
 
-    it('should have stocked ingredients', () => {
-        expect(pantry.stockedIngredients).to.deep.equal([
-            {
-                "ingredient": 11477,
-                "amount": 4
-            },
-            {
-                "ingredient": 11297,
-                "amount": 4
-            },
-            {
-                "ingredient": 1082047,
-                "amount": 10
-            }])
-    })
+  it('should be an instance of Pantry', () => {
+      expect(pantry).to.be.instanceOf(Pantry);
+  });
 
-    it('should be able to check for required ingredients', () => {
+  it('should have stocked ingredients', () => {
+    expect(pantry.stockedIngredients).to.deep.equal(user.pantry)
+  });
 
-        pantry.checkForRequiredIngredients(recipe);
-        console.log(pantryItems)
-        expect(pantryItems)
-    })
+  it('should be able to check if there are enough required ingredients', () => {
+    expect(pantry.checkForRequiredIngredients(recipe1)).to.equal(true)
+  });
+
+  it('should return false if there are not enough required ingredients', () => {
+    expect(pantry.checkForRequiredIngredients(recipe2)).to.equal(false)
+  });
+
+  it('should return an array of the missing ingredients if some are missing', () => {
+    expect(pantry.provideMissingIngredients(recipe2)).to.deep.equal([
+      {'id': 11477, 'amount': 1}, {'id': 11297, 'amount': 1}, {'id': 1082047, 'amount': 1}
+    ])
+  });
 
 });
