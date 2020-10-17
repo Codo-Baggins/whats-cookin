@@ -1,5 +1,5 @@
-const recipeData = require('../data/recipes');
-const ingredientsData = require('../data/ingredients');
+// const recipeData = require('../data/recipes');
+// const ingredientsData = require('../data/ingredients');
 
 class User {
     constructor(id, name, pantry) {
@@ -66,5 +66,5 @@ class User {
 }
 
 if (typeof module !== 'undefined') {
-    module.exports = someClassName;
+    module.exports = User;
   }
