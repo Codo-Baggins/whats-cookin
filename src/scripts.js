@@ -2,6 +2,10 @@
 //const userData = require('../data/users');
 
 //const recipeData = require("../data/recipes");
+
+//const recipeData = require("../data/recipes");
+
+//const recipeData = require("../data/recipes");
 //const Recipe = require("./Recipe");
 
 //let usersData = require("../data/users");
@@ -15,15 +19,23 @@ const recipesSection = document.querySelector('.displayed-recipes');
 //const selcted = document.querySelector('.selected');
 const titleDisplay = document.querySelector('.title-display');
 
+const tagsDropDown = document.querySelector('.tags');
+
 //~~~~~~~~~~~~~~~~~~EVENT LISTENERS~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 window.addEventListener('load', handleLoad);
 usersDropDown.addEventListener('change', selectUser);
+tagsDropDown.addEventListener('change', selectTag);
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 function handleLoad() {
   loadUsers();
-  displayRecipes();
+  createRecipes(recipeData);
+  displayRecipes(recipeData);
+  loadTags();
 }
 //~~~~~~~~~~~~~~~~~~~~~~~
 //const Pantry = require('../src/Pantry');
@@ -40,20 +52,20 @@ function createUsers() {
   })
   return userNames;
 }
-  
+
 function loadUsers() {
-    let users = createUsers();
-     console.log(users);
-      users.forEach(user => {
-      return usersDropDown.innerHTML += `<option value="${user}">${user}</option>`
+  let users = createUsers();
+  console.log(users);
+  users.forEach(user => {
+    return usersDropDown.innerHTML += `<option value="${user}">${user}</option>`
   })
 }
 
 //update display to show name
 // instantiate user based on name
 function selectUser(event) {
-  let userName = event.target.value
-  titleDisplay.innerText = `What's Cookin, ${userName}?`
+  let userName = event.target.value;
+  titleDisplay.innerText = `What's Cookin, ${userName}?`;
   usersData.forEach(user => {
     if (userName === user.name) {
       currentUser = new User(user.id, user.name, user.pantry)
@@ -63,19 +75,45 @@ function selectUser(event) {
   return currentUser;
 }
 
-function createRecipes() {
+function createUniqueTags() {
+  let uniqueTags = recipeData.reduce((allTags, recipe) => {
+    recipe.tags.forEach(tag => {
+      if (!allTags.includes(tag)) {
+        allTags.push(tag);
+      }
+      })
+      return allTags;
+  }, [])
+  return uniqueTags
+}
+
+function loadTags() {
+  let uniqueTags = createUniqueTags();
+  uniqueTags.forEach(uniqueTag => {
+    return tagsDropDown.innerHTML += `<option value="${uniqueTag}">${uniqueTag.toUpperCase()}</option>`
+  })
+}
+
+function selectTag(event) {
+  let selectedTag = event.target.value;
+  let filteredRecipes = currentUser.filterRecipesByTag(selectedTag, recipeData);
+  clearDisplayedRecipes();
+  return displayRecipes(filteredRecipes);
+}
+
+function createRecipes(recipeList) {
   let collectedRecipes = [];
-  recipeData.forEach(recipe => {
+  recipeList.forEach(recipe => {
     let displayedRecipe = new Recipe(recipe.id, recipe.image, recipe.ingredients, recipe.instructions, recipe.name, recipe.tags);
       return collectedRecipes.push(displayedRecipe);
   })
   return collectedRecipes;
 }
 
-function displayRecipes() {
-  let recipes = createRecipes();
+function displayRecipes(recipeList) {
+  //let recipes = createRecipes(recipeList);
   //console.log(recipes);
-  recipes.forEach(recipe => {
+  recipeList.forEach(recipe => {
     let userHasIngredients = false;
     // let userHasIngredients = pantry.checkForRequiredIngredients(recipe, user)
     let recipeClasses = `recipe ${userHasIngredients && "recipeHasIngredients"}`
@@ -91,4 +129,8 @@ function displayRecipes() {
       </form>
     </div>`
   })
+}
+
+function clearDisplayedRecipes() {
+  recipesSection.innerHTML = '';
 }
