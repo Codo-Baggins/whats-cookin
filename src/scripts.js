@@ -1,6 +1,8 @@
 
 //const userData = require('../data/users');
 
+//const { filter } = require("../data/users");
+
 //const recipeData = require("../data/recipes");
 
 //const recipeData = require("../data/recipes");
@@ -21,12 +23,17 @@ const titleDisplay = document.querySelector('.title-display');
 
 const tagsDropDown = document.querySelector('.tags');
 
+const searchInput = document.querySelector('.search-field');
+
+const searchButton = document.querySelector('#search-button');
+
 //~~~~~~~~~~~~~~~~~~EVENT LISTENERS~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 window.addEventListener('load', handleLoad);
 usersDropDown.addEventListener('change', selectUser);
 tagsDropDown.addEventListener('change', selectTag);
 
+searchButton.addEventListener('click', searchRecipes);
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -35,7 +42,7 @@ function handleLoad() {
   loadUsers();
   createRecipes(recipeData);
   displayRecipes(recipeData);
-  loadTags();
+  //loadTags();
 }
 //~~~~~~~~~~~~~~~~~~~~~~~
 //const Pantry = require('../src/Pantry');
@@ -72,6 +79,7 @@ function selectUser(event) {
     }
     //return currentUser
   })
+  loadTags();
   return currentUser;
 }
 
@@ -133,4 +141,17 @@ function displayRecipes(recipeList) {
 
 function clearDisplayedRecipes() {
   recipesSection.innerHTML = '';
+}
+
+// function enableTagDropDown() {
+
+// }
+
+function searchRecipes() {
+  //const searchInput = document.querySelector('.search-fields').value;
+  let filteredRecipesByName = currentUser.searchRecipesByName(searchInput.value, recipeData)
+  let filteredRecipesByIngredient = currentUser.searchRecipesByIngredient(searchInput.value, recipeData)
+  clearDisplayedRecipes();
+  displayRecipes(filteredRecipesByName);
+  displayRecipes(filteredRecipesByIngredient)
 }

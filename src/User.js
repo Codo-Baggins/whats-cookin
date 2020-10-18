@@ -41,10 +41,12 @@ class User {
 // push recipes containing id into array that is returned
     searchRecipesByIngredient(searchedIngredient, recipeList) {
         let ingredientID;
+        let ingredientName;
         let recipes = [];
         ingredientsData.forEach(ingredient => {
             if(searchedIngredient === ingredient.name) {
                 ingredientID = ingredient.id;
+                ingredientName = ingredient.name;
             }
         });
         recipeList.forEach(recipe => {
@@ -58,10 +60,21 @@ class User {
     }
 
     searchRecipesByName(searchedName, recipeList) {
+        let foundRecipes = [];
         searchedName = searchedName.toLowerCase();
-        return recipeList.filter(recipe => {
-            return recipe.name.toLowerCase() === searchedName;
+        recipeList.forEach(recipe => {
+            let recipeName = recipe.name.toLowerCase();
+            if (recipeName.includes(searchedName)) {
+                foundRecipes.push(recipe)
+            }
+        //     return foundRecipes
         })
+            return foundRecipes;
+        // return recipeList.filter(recipe => {
+        //     return recipe.name.includes(searchedName);
+        // })
+
+        
     }
 }
 
