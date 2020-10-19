@@ -129,11 +129,13 @@ function displayRecipes(recipeList) {
     `<div class="${recipeClasses}">
       <img class="recipe-image" src="${recipe.image}">
       <form class="recipe-options">
-        <input type="checkbox" id="template-recipe" name="example-recipe" value="example-food">
+        <input class="hidden" type="checkbox" id="to-cook-${recipe.name}" name="to-cook" value="example-food">
+        <label id="${recipe.name}-to-cook" for="to-cook-${recipe.name}" name="to-cook"><img class="to-cook" src="../assets/recipe-black.svg"></label>
         <button id="${recipe.name}" class="recipe-name">
           ${recipe.name}
         </button>
-        <input type="checkbox">
+        <input class="hidden" type="checkbox" id="favorite-${recipe.name}" name="favorite">
+        <label id="favorite" name="favorite" for="favorite-${recipe.name}"><img class="favorites" src="../assets/heart-outline.svg"></label>
       </form>
     </div>`
   })

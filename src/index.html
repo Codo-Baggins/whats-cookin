@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="styles.css"></link>
+    <link href='https://fonts.googleapis.com/css?family=Bilbo' rel='stylesheet'>
     <title>What's Cookin'?</title>
   </head>
   <body>
@@ -17,14 +18,14 @@
         </form>
       </section>
 
-      <section>
+      <section id="top-bar">
         <h1 class="title-display">What's Cookin?</h1>
+          <section>
+            <button class="favorites-button nav-buttons">My Favorites</button>
+            <button class="to-cook-button nav-buttons">Recipes To Cook</button>
+          </section>
       </section> 
 
-      <section>
-        <button class="favorites-button nav-buttons">My Favorites</button>
-        <button class="to-cook-button nav-buttons">Recipes To Cook</button>
-      </section>
     </nav>
     <main>
       <section class="search-fields">
@@ -60,6 +61,7 @@
     <script type="text/javascript" src="../data/ingredients.js"></script>
     <script type="text/javascript" src="../src/User.js"></script>
     <script type="text/javascript" src="../src/Recipe.js"></script>
+    <script type="text/javascript" src="../src/Pantry.js"></script>
     <script type="text/javascript" src="./scripts.js"></script>
   </body>
 </html>
