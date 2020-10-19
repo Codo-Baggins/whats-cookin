@@ -1,4 +1,32 @@
 /* ~~~~~~~~~~~~~~~~~~~ HEAD ~~~~~~~~~~~~~~~~~~ */
+
+* {
+    font-family: 'Bilbo';
+    font-size: 22px; 
+}
+
+select, button, {
+    cursor: pointer;
+}
+
+#top-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100% ;
+    text-shadow: ;
+    color:  #17E9E0;
+    /* background-color: #393939; */
+    /* background-image: linear-gradient(135deg, transparent, #44318D,  #F172A1, #F0EBF4, #44318D, #84CCEB); */
+    background-image: linear-gradient(135deg, black,  #393939, gray, white);
+    /* , gray repeating-linear-gradient(45deg, transparent, transparent 35px, */
+
+    /* rgba(255, 255, 255, 0.5) 35px, rgba(255, 255, 255, 0.5) 70px); */
+
+    border-bottom-left-radius: 20px;
+    border-top-left-radius: 20px;
+}
+
 nav {
     display: flex;
     justify-content: space-between;
@@ -6,19 +34,41 @@ nav {
 
 h1 {
     font-size: 4em;
+    /* background-color: #393939; */
+    padding: 30px
 }
 
 .nav-buttons {
-    color: blue;
+    color: black;
     border: none;
-    background: none;
+    background-color: #17E9E0;
     text-decoration: underline;
+    border: 5px solid #17E9E0;
+    border-radius: 10px;
+    width: 4.5em;
+    height: 4em;
+}
+
+.nav-buttons:hover{
+    transform:scale(1.2,1.2) translate3d(0,0,0); 
+    border: 5px solid #44BBA4;
+    background-color: white;
 }
 
 /* ~~~~~~~~~~~~~~~~~~~ MAIN SECTION ~~~~~~~~~~~~~~~~~~ */
+body{
+    /* background-color: #bcc0ca; */
+    /* background: linear-gradient(90deg, transparent, pink, #cccccc, white),  #9050ad 
+    repeating-linear-gradient(45deg, transparent, transparent 35px,#44318D 35px, #9050ad 70px); */
+    background: linear-gradient(90deg, transparent, pink, #cccccc),  #9050ad 
+    repeating-linear-gradient(45deg, transparent, transparent 35px);
+}
+
 main {
     display: flex;
     flex-direction: column;
+    /* background-color: #F78888; */
+    justify-content: space-evenly;
 }
 
 .search-fields {
@@ -33,7 +83,10 @@ main {
     flex-direction: column;
     height: 20em;
     width: 15em;
-    border: solid blue 0.3em;
+    border: solid #17E9E0 0.4em;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    padding: 10px;
 }
 
 .recipe-image{
@@ -44,7 +97,10 @@ main {
 .recipe-options {
     display: flex;
     justify-content: space-between;
-    margin: 1em 0em;
+    background-color: #bcc0ca;
+    height: 4em;
+    width: 15em;
+    margin: 1em 0em 0em;
 }
 
 .recipe-name {
@@ -55,7 +111,42 @@ main {
 }
 
 .displayed-recipes {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
 }
+
+.hidden {
+    display: none;
+}
+
+.to-cook {
+    height: 2em;
+    width: 2em;
+}
+
+.favorites {
+    height: 2em;
+    width: 2em;
+}
+
+/* label::before {
+    background-image: url(../assets/heart-outline.svg);
+} */
+
+input[type="checkbox"]:checked + label[name="to-cook"]{
+    /* display:; */
+    vertical-align: middle;
+    width: 2.5em;
+    height: 2.5em;
+    background-image: url(../assets/recipe-green.svg);
+} 
+
+input[type="checkbox"]:checked + label[name="favorite"]{
+    display: inline-block;
+    vertical-align: middle;
+    width: 45px;
+    height: 45px;
+    background-image: url(../assets/red-heart.svg);
+} 
