@@ -12,13 +12,13 @@
       <section>
         <form>
           <select class="users">
-            <option value="select">Select</option>
+            <option value="select">Select User</option>
           </select>
         </form>
       </section>
 
       <section>
-        <h1>What's Cookin?</h1>
+        <h1 class="title-display">What's Cookin?</h1>
       </section> 
 
       <section>
@@ -28,10 +28,10 @@
     </nav>
     <main>
       <section class="search-fields">
-        <form>
-          <input type="text">
-          <input type="submit">
-        </form>
+        <div>
+          <input class="search-field" type="text">
+          <button id="search-button">Search Recipes</button>
+        </div>
         <form>
           <select class="tags">
             <option value="select-tag">Select Tag</option>
@@ -40,7 +40,7 @@
       </section>
 
       <section class="displayed-recipes">
-          <div class="recipe">
+          <!-- <div class="recipe">
             <img class="recipe-image" src="https://spoonacular.com/recipeImages/595736-556x370.jpg">
             <form class="recipe-options">
               <input type="checkbox" id="template-recipe" name="example-recipe" value="example-food">
@@ -51,14 +51,15 @@
               <input type="checkbox">
 
             </form>
-          </div>
+          </div> -->
       </section>
     </main>
 
     <script type="text/javascript" src="../data/users.js"></script>
     <script type="text/javascript" src="../data/recipes.js"></script>
-    <script type="text/javascript" src="../src/Recipe.js"></script>
     <script type="text/javascript" src="../data/ingredients.js"></script>
+    <script type="text/javascript" src="../src/User.js"></script>
+    <script type="text/javascript" src="../src/Recipe.js"></script>
     <script type="text/javascript" src="./scripts.js"></script>
   </body>
 </html>

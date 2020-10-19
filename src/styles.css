@@ -47,9 +47,15 @@ main {
     margin: 1em 0em;
 }
 
-#recipe-name {
+.recipe-name {
     color: blue;
     border: none;
     background: none;
     text-decoration: underline;
+}
+
+.displayed-recipes {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }

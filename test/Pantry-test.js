@@ -8,7 +8,7 @@ const recipeTestData = require('../test/Recipe-test-data');
 const pantryTestData = require('../test/Pantry-test-data');
 
 
-describe.only('Pantry', () => {
+describe('Pantry', () => {
   let user, pantry, recipe1, recipe2;
 
   beforeEach(function() {
