@@ -42,6 +42,7 @@ function handleLoad() {
   loadUsers();
   createRecipes(recipeData);
   displayRecipes(recipeData);
+  bindRecipeToggleButtons();
   //loadTags();
 }
 //~~~~~~~~~~~~~~~~~~~~~~~
@@ -128,15 +129,22 @@ function displayRecipes(recipeList) {
    return recipesSection.innerHTML += 
     `<div class="${recipeClasses}">
       <img class="recipe-image" src="${recipe.image}">
-      <form class="recipe-options">
-        <input class="hidden" type="checkbox" id="to-cook-${recipe.name}" name="to-cook" value="example-food">
-        <label id="${recipe.name}-to-cook" for="to-cook-${recipe.name}" name="to-cook"><img class="to-cook" src="../assets/recipe-black.svg"></label>
+      <section class="recipe-options">
+        <button 
+          class="add-to-recipe-book" 
+          data-recipe-id="${recipe.id}"
+        >
+        </button>
         <button id="${recipe.name}" class="recipe-name">
           ${recipe.name}
         </button>
-        <input class="hidden" type="checkbox" id="favorite-${recipe.name}" name="favorite">
-        <label id="favorite" name="favorite" for="favorite-${recipe.name}"><img class="favorites" src="../assets/heart-outline.svg"></label>
-      </form>
+        <input 
+          class="hidden favorite" 
+          type="checkbox" 
+          id="favorite-${recipe.name}" 
+          name="favorite"
+        />
+      </section>
     </div>`
   })
 }
@@ -145,10 +153,6 @@ function clearDisplayedRecipes() {
   recipesSection.innerHTML = '';
 }
 
-// function enableTagDropDown() {
-
-// }
-
 function searchRecipes() {
   //const searchInput = document.querySelector('.search-fields').value;
   let filteredRecipesByName = currentUser.searchRecipesByName(searchInput.value, recipeData)
@@ -156,4 +160,25 @@ function searchRecipes() {
   clearDisplayedRecipes();
   displayRecipes(filteredRecipesByName);
   displayRecipes(filteredRecipesByIngredient)
+}
+
+function bindRecipeToggleButtons() {
+  let buttons = document.querySelectorAll('[data-recipe-id]');
+  buttons.forEach(button => {
+    button.addEventListener('click', e => {
+      let recipeIdToToggle = e.target.getAttribute("data-recipe-id")
+      e.target.classList.toggle('selected');
+      console.log('Recipe has been toggled', recipeIdToToggle)
+      toggleRecipeFromFavorites(recipeIdToToggle);
+      console.log('list of recipes is', currentUser.recipesToCook)
+    })
+  })
+}
+
+function toggleRecipeFromFavorites(recipeId) {
+  if (currentUser.recipesToCook.includes(recipeId)) {
+    currentUser.removeFromRecipesToCook(recipeId);
+  } else {
+    currentUser.addToRecipesToCook(recipeId);
+  } 
 }
