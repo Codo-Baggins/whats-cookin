@@ -42,6 +42,8 @@ function handleLoad() {
   loadUsers();
   createRecipes(recipeData);
   displayRecipes(recipeData);
+  bindToCookToggleButtons();
+  bindFavoriteToggleButtons();
   //loadTags();
 }
 //~~~~~~~~~~~~~~~~~~~~~~~
@@ -128,15 +130,20 @@ function displayRecipes(recipeList) {
    return recipesSection.innerHTML += 
     `<div class="${recipeClasses}">
       <img class="recipe-image" src="${recipe.image}">
-      <form class="recipe-options">
-        <input class="hidden" type="checkbox" id="to-cook-${recipe.name}" name="to-cook" value="example-food">
-        <label id="${recipe.name}-to-cook" for="to-cook-${recipe.name}" name="to-cook"><img class="to-cook" src="../assets/recipe-black.svg"></label>
+      <section class="recipe-options">
+        <button 
+          class="add-to-recipe-book" 
+          data-to-cook-id="${recipe.id}"
+        >
+        </button>
         <button id="${recipe.name}" class="recipe-name">
           ${recipe.name}
         </button>
-        <input class="hidden" type="checkbox" id="favorite-${recipe.name}" name="favorite">
-        <label id="favorite" name="favorite" for="favorite-${recipe.name}"><img class="favorites" src="../assets/heart-outline.svg"></label>
-      </form>
+        <button 
+        class="add-to-favorites" 
+        data-favorite-id="${recipe.id}"
+      >
+      </section>
     </div>`
   })
 }
@@ -145,10 +152,6 @@ function clearDisplayedRecipes() {
   recipesSection.innerHTML = '';
 }
 
-// function enableTagDropDown() {
-
-// }
-
 function searchRecipes() {
   //const searchInput = document.querySelector('.search-fields').value;
   let filteredRecipesByName = currentUser.searchRecipesByName(searchInput.value, recipeData)
@@ -156,4 +159,46 @@ function searchRecipes() {
   clearDisplayedRecipes();
   displayRecipes(filteredRecipesByName);
   displayRecipes(filteredRecipesByIngredient)
+}
+
+function bindToCookToggleButtons() {
+  let buttons = document.querySelectorAll('[data-to-cook-id]');
+  buttons.forEach(button => {
+    button.addEventListener('click', e => {
+      let recipeIdToToggle = e.target.getAttribute("data-to-cook-id")
+      e.target.classList.toggle('selected');
+      console.log('Recipe has been toggled', recipeIdToToggle)
+      toggleRecipeFromToCook(recipeIdToToggle);
+      console.log('to cook recipes', currentUser.recipesToCook)
+    })
+  })
+}
+
+function toggleRecipeFromToCook(recipeId) {
+  if (currentUser.recipesToCook.includes(recipeId)) {
+    currentUser.removeFromRecipesToCook(recipeId);
+  } else {
+    currentUser.addToRecipesToCook(recipeId);
+  } 
+}
+
+function bindFavoriteToggleButtons() {
+  let buttons = document.querySelectorAll('[data-favorite-id]');
+  buttons.forEach(button => {
+    button.addEventListener('click', e => {
+      let recipeIdToToggle = e.target.getAttribute("data-favorite-id")
+      e.target.classList.toggle('selected');
+      console.log('Recipe has been toggled', recipeIdToToggle)
+      toggleRecipeFromFavorites(recipeIdToToggle);
+      console.log('Favorite recipes', currentUser.favoriteRecipes)
+    })
+  })
+}
+
+function toggleRecipeFromFavorites(recipeId) {
+  if (currentUser.favoriteRecipes.includes(recipeId)) {
+    currentUser.removeFromFavorites(recipeId);
+  } else {
+    currentUser.addToFavorites(recipeId);
+  } 
 }
