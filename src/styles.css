@@ -121,7 +121,7 @@ main {
     display: none;
 }
 
-.to-cook {
+/* .to-cook {
     height: 2em;
     width: 2em;
 }
@@ -129,27 +129,7 @@ main {
 .favorites {
     height: 2em;
     width: 2em;
-}
-
-/* label::before {
-    background-image: url(../assets/heart-outline.svg);
 } */
-
-input[type="checkbox"]:checked + label[name="to-cook"]{
-    /* display:; */
-    vertical-align: middle;
-    width: 2.5em;
-    height: 2.5em;
-    background-image: url(../assets/recipe-green.svg);
-} 
-
-input[type="checkbox"]:checked + label[name="favorite"]{
-    display: inline-block;
-    vertical-align: middle;
-    width: 45px;
-    height: 45px;
-    background-image: url(../assets/red-heart.svg);
-} 
 
 .add-to-recipe-book {
     width: 2em;
@@ -158,8 +138,23 @@ input[type="checkbox"]:checked + label[name="favorite"]{
     border: none;
     background-color: transparent;
     background-image: url(../assets/recipe-black.svg);
+    padding: 0;
 }
 
 .add-to-recipe-book.selected {
     background-image: url(../assets/recipe-green.svg);
+}
+
+.add-to-favorites {
+    width: 2em;
+    height: 2em;
+    background-size: cover;
+    border: none;
+    background-color: transparent;
+    background-image: url(../assets/heart-outline.svg);
+    padding: 0;
+}
+
+.add-to-favorites.selected {
+    background-image: url(../assets/red-heart.svg);
 }

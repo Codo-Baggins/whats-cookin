@@ -42,7 +42,8 @@ function handleLoad() {
   loadUsers();
   createRecipes(recipeData);
   displayRecipes(recipeData);
-  bindRecipeToggleButtons();
+  bindToCookToggleButtons();
+  bindFavoriteToggleButtons();
   //loadTags();
 }
 //~~~~~~~~~~~~~~~~~~~~~~~
@@ -132,18 +133,16 @@ function displayRecipes(recipeList) {
       <section class="recipe-options">
         <button 
           class="add-to-recipe-book" 
-          data-recipe-id="${recipe.id}"
+          data-to-cook-id="${recipe.id}"
         >
         </button>
         <button id="${recipe.name}" class="recipe-name">
           ${recipe.name}
         </button>
-        <input 
-          class="hidden favorite" 
-          type="checkbox" 
-          id="favorite-${recipe.name}" 
-          name="favorite"
-        />
+        <button 
+        class="add-to-favorites" 
+        data-favorite-id="${recipe.id}"
+      >
       </section>
     </div>`
   })
@@ -162,23 +161,44 @@ function searchRecipes() {
   displayRecipes(filteredRecipesByIngredient)
 }
 
-function bindRecipeToggleButtons() {
-  let buttons = document.querySelectorAll('[data-recipe-id]');
+function bindToCookToggleButtons() {
+  let buttons = document.querySelectorAll('[data-to-cook-id]');
   buttons.forEach(button => {
     button.addEventListener('click', e => {
-      let recipeIdToToggle = e.target.getAttribute("data-recipe-id")
+      let recipeIdToToggle = e.target.getAttribute("data-to-cook-id")
+      e.target.classList.toggle('selected');
+      console.log('Recipe has been toggled', recipeIdToToggle)
+      toggleRecipeFromToCook(recipeIdToToggle);
+      console.log('to cook recipes', currentUser.recipesToCook)
+    })
+  })
+}
+
+function toggleRecipeFromToCook(recipeId) {
+  if (currentUser.recipesToCook.includes(recipeId)) {
+    currentUser.removeFromRecipesToCook(recipeId);
+  } else {
+    currentUser.addToRecipesToCook(recipeId);
+  } 
+}
+
+function bindFavoriteToggleButtons() {
+  let buttons = document.querySelectorAll('[data-favorite-id]');
+  buttons.forEach(button => {
+    button.addEventListener('click', e => {
+      let recipeIdToToggle = e.target.getAttribute("data-favorite-id")
       e.target.classList.toggle('selected');
       console.log('Recipe has been toggled', recipeIdToToggle)
       toggleRecipeFromFavorites(recipeIdToToggle);
-      console.log('list of recipes is', currentUser.recipesToCook)
+      console.log('Favorite recipes', currentUser.favoriteRecipes)
     })
   })
 }
 
 function toggleRecipeFromFavorites(recipeId) {
-  if (currentUser.recipesToCook.includes(recipeId)) {
-    currentUser.removeFromRecipesToCook(recipeId);
+  if (currentUser.favoriteRecipes.includes(recipeId)) {
+    currentUser.removeFromFavorites(recipeId);
   } else {
-    currentUser.addToRecipesToCook(recipeId);
+    currentUser.addToFavorites(recipeId);
   } 
 }
