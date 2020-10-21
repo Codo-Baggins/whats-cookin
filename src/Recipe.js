@@ -22,7 +22,10 @@ class Recipe {
   }
 
   returnInstructions() {
-    return this.instructions;
+    let instructions = this.instructions.forEach(direction => {
+      return direction.instruction;
+    })
+    return instructions;
   }
 }
 

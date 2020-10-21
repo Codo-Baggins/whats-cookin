@@ -1,6 +1,8 @@
 
 //const userData = require('../data/users');
 
+// const Recipe = require("./Recipe");
+
 //const { filter } = require("../data/users");
 
 //const recipeData = require("../data/recipes");
@@ -274,10 +276,12 @@ function bindShowRecipeButtons() {
     button.addEventListener('click', e => {
       let recipeIdToShow = e.target.getAttribute("data-recipe-id")
       let recipe = recipeData.find(recipeToFind => recipeToFind.id == recipeIdToShow)
+      let currentRecipe = new Recipe(recipe.id, recipe.image, recipe.ingredients, recipe.instructions, recipe.name, recipe.tags);
       recipeSection.innerHTML = `
-        <p>${recipe.name}</p>
-        <p>${recipe.instructions}</p>
+        <p>${currentRecipe.name}</p>
+        <p>${currentRecipe.returnInstructions()}</p>
       `
+      console.log(currentRecipe.returnInstructions())
       showRecipeSection();
     })
   })
