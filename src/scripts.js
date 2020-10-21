@@ -27,6 +27,14 @@ const searchInput = document.querySelector('.search-field');
 
 const searchButton = document.querySelector('#search-button');
 
+const favoriteButton = document.querySelector('.favorites-button');
+const toCookButton = document.querySelector('.to-cook-button');
+const favoritesSection = document.querySelector('.favorite-section');
+const toCookSection = document.querySelector('.to-cook-section');
+
+const recipeSection = document.querySelector('.displayed-recipe');
+
+
 //~~~~~~~~~~~~~~~~~~EVENT LISTENERS~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 window.addEventListener('load', handleLoad);
@@ -35,16 +43,15 @@ tagsDropDown.addEventListener('change', selectTag);
 
 searchButton.addEventListener('click', searchRecipes);
 
+favoriteButton.addEventListener('click', displayFavoriteRecipes);
+toCookButton.addEventListener('click', displayToCookRecipes)
+
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 function handleLoad() {
   loadUsers();
   createRecipes(recipeData);
-  displayRecipes(recipeData);
-  bindToCookToggleButtons();
-  bindFavoriteToggleButtons();
-  //loadTags();
 }
 //~~~~~~~~~~~~~~~~~~~~~~~
 //const Pantry = require('../src/Pantry');
@@ -52,7 +59,7 @@ function handleLoad() {
 // const Recipe = require('../src/Recipe');
 //const usersData = require('../data/users');
 
-let currentUser;
+let currentUser, currentPantry;
 
 function createUsers() {
   let userNames = usersData.map(user => {
@@ -64,7 +71,6 @@ function createUsers() {
 
 function loadUsers() {
   let users = createUsers();
-  console.log(users);
   users.forEach(user => {
     return usersDropDown.innerHTML += `<option value="${user}">${user}</option>`
   })
@@ -79,10 +85,9 @@ function selectUser(event) {
     if (userName === user.name) {
       currentUser = new User(user.id, user.name, user.pantry)
     }
-    //return currentUser
   })
   loadTags();
-  return currentUser;
+  displayRecipes(recipeData, recipesSection);
 }
 
 function createUniqueTags() {
@@ -120,15 +125,16 @@ function createRecipes(recipeList) {
   return collectedRecipes;
 }
 
-function displayRecipes(recipeList) {
+function displayRecipes(recipeList, recipeLocation) {
   //let recipes = createRecipes(recipeList);
   //console.log(recipes);
   recipeList.forEach(recipe => {
     let userHasIngredients = false;
-    // let userHasIngredients = pantry.checkForRequiredIngredients(recipe, user)
+    //let userHasIngredients = currentPantry.checkForRequiredIngredients(recipe, user)
     let recipeClasses = `recipe ${userHasIngredients && "recipeHasIngredients"}`
-   return recipesSection.innerHTML += 
-    `<div class="${recipeClasses}">
+
+    recipeLocation.innerHTML += `
+    <div class="${recipeClasses}">
       <img class="recipe-image" src="${recipe.image}">
       <section class="recipe-options">
         <button 
@@ -136,16 +142,21 @@ function displayRecipes(recipeList) {
           data-to-cook-id="${recipe.id}"
         >
         </button>
-        <button id="${recipe.name}" class="recipe-name">
+        <button id="${recipe.name}" data-recipe-id="${recipe.id}"
+        class="recipe-name">
           ${recipe.name}
         </button>
         <button 
-        class="add-to-favorites" 
-        data-favorite-id="${recipe.id}"
-      >
+          class="add-to-favorites" 
+          data-favorite-id="${recipe.id}"
+        />
       </section>
-    </div>`
+      </div>
+    `
   })
+  bindToCookToggleButtons();
+  bindFavoriteToggleButtons();
+  bindShowRecipeButtons();
 }
 
 function clearDisplayedRecipes() {
@@ -201,4 +212,73 @@ function toggleRecipeFromFavorites(recipeId) {
   } else {
     currentUser.addToFavorites(recipeId);
   } 
+}
+
+function displayFavoriteRecipes() {
+  let userFavorites = [];
+  currentUser.favoriteRecipes.forEach(number => {
+    recipeData.forEach(recipe => {
+      if (recipe.id == number) {
+        userFavorites.push(recipe);
+      }
+    })
+  })
+  showFavoriteListSection();
+  displayRecipes(userFavorites, favoritesSection);
+}
+
+function showRecipeListSection() {
+  favoritesSection.classList.add('hidden');
+  recipesSection.classList.remove('hidden');
+  toCookSection.classList.add('hidden');
+  recipeSection.classList.add('hidden');
+}
+
+function showFavoriteListSection() {
+  favoritesSection.classList.remove('hidden');
+  recipesSection.classList.add('hidden');
+  toCookSection.classList.add('hidden');
+  recipeSection.classList.add('hidden');
+}
+
+function showToCookSection() {
+  favoritesSection.classList.add('hidden');
+  recipesSection.classList.add('hidden');
+  toCookSection.classList.remove('hidden');
+  recipeSection.classList.add('hidden');
+}
+
+function showRecipeSection() {
+  favoritesSection.classList.add('hidden');
+  recipesSection.classList.add('hidden');
+  toCookSection.classList.add('hidden');
+  recipeSection.classList.remove('hidden');
+}
+
+function displayToCookRecipes() {
+  let userToCook = [];
+  currentUser.recipesToCook.forEach(number => {
+    recipeData.forEach(recipe => {
+      if (recipe.id == number) {
+        userToCook.push(recipe);
+      }
+    })
+  })
+  showToCookSection();
+  displayRecipes(userToCook, toCookSection);
+}
+
+function bindShowRecipeButtons() {
+  let buttons = document.querySelectorAll('[data-recipe-id]');
+  buttons.forEach(button => {
+    button.addEventListener('click', e => {
+      let recipeIdToShow = e.target.getAttribute("data-recipe-id")
+      let recipe = recipeData.find(recipeToFind => recipeToFind.id == recipeIdToShow)
+      recipeSection.innerHTML = `
+        <p>${recipe.name}</p>
+        <p>${recipe.instructions}</p>
+      `
+      showRecipeSection();
+    })
+  })
 }
