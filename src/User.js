@@ -1,4 +1,5 @@
-// const recipeData = require('../data/recipes');
+// to run and pass tests uncomment line 3
+
 // const ingredientsData = require('../data/ingredients');
 
 class User {
@@ -33,12 +34,7 @@ class User {
             return recipe.tags.includes(tag);
         });
     }
-// return all recipes containing ingredient being searched
-// params of searchedIngredient and data of all ingredients
-// search through all recipes in whatever array is passed
-// look to see if recipes include required ingredient
-// match id's to searchedIngredient
-// push recipes containing id into array that is returned
+
     searchRecipesByIngredient(searchedIngredient, recipeList) {
         let ingredientID;
         let ingredientName;
@@ -67,14 +63,8 @@ class User {
             if (recipeName.includes(searchedName)) {
                 foundRecipes.push(recipe)
             }
-        //     return foundRecipes
         })
-            return foundRecipes;
-        // return recipeList.filter(recipe => {
-        //     return recipe.name.includes(searchedName);
-        // })
-
-        
+        return foundRecipes;
     }
 }
 

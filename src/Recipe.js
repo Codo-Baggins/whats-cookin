@@ -22,13 +22,13 @@ class Recipe {
   }
 
   returnInstructions() {
-    let instructions = this.instructions.forEach(direction => {
-      return direction.instruction;
-    })
+    let instructions = this.instructions.reduce((directions, step) => {
+      directions.push(` ${step.number}. ${step.instruction}`);
+      return directions;
+    }, []);
     return instructions;
   }
 }
-
 
 if (typeof module !== 'undefined') {
   module.exports = Recipe;

@@ -3,24 +3,6 @@ class Pantry {
         this.stockedIngredients = stockedIngredients;
     }
 
-
-    // check the recipe amount by going into the recipe array 
-    // match the desired recipe to the recipe id and 
-
-    // capture recipe id 
-    // check the user's pantry to see the amount of that id is in the users pantry
-    // return id and amount from our recipe data to compare against
-
-    
-    // Look at ingredients inside of specified recipe
-    // inside of the ingredients array, look at the id and the quantity.amount
-    // match the user's pantry's ingredient to id && check if pantry amount is greater than recipe amount
-    // if pantry amount is less than required in recipe, return unable to make this recipe
-    // make sure user has ingredient?????
-
-    // input: one recipe and user pantry
-    // output: boolean value if one can make the recipe
-
     findRequiredIngredients(recipe) {
       return recipe.ingredients.map(ingredient => {
           const ingredientsData = {};
@@ -46,22 +28,18 @@ class Pantry {
     }
     
     provideMissingIngredients(recipe) {
-      const groceryList = [];
+      let missingIngredients = []
       const requiredIngredients = this.findRequiredIngredients(recipe);
       requiredIngredients.forEach(ingredient => {
-        return this.stockedIngredients.map(item => {
-          if (ingredient.id === item.ingredient && ingredient.amount > item.amount) {
-            const ingredientDetails = {};
-            ingredientDetails.id = ingredient.id;
-            ingredientDetails.amount = ingredient.amount - item.amount;    
-            groceryList.push(ingredientDetails);
+        this.stockedIngredients.forEach(stockItem => {          
+          if ((ingredient.id == stockItem.ingredient) && (ingredient.amount > stockItem.amount)) {
+            missingIngredients.push(`Ingredient ID - ${stockItem.ingredient}: Amount - ${ingredient.amount - stockItem.amount}`)
           }
         })
       })
-      return groceryList;
+      return missingIngredients
     }    
 }
-
 
 if (typeof module !== 'undefined') {
     module.exports = Pantry;

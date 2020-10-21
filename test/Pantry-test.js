@@ -29,6 +29,13 @@ describe('Pantry', () => {
   it('should have stocked ingredients', () => {
     expect(pantry.stockedIngredients).to.deep.equal(user.pantry)
   });
+  
+  it('should find the required ingredients for the recipe', () => {
+    expect(pantry.findRequiredIngredients(recipe1)).to.deep.equal([  
+      { id: 11477, amount: 3 },
+      { id: 11297, amount: 4 },
+      { id: 1082047, amount: 7 }]);
+  })
 
   it('should be able to check if there are enough required ingredients', () => {
     expect(pantry.checkForRequiredIngredients(recipe1)).to.equal(true)
@@ -40,8 +47,7 @@ describe('Pantry', () => {
 
   it('should return an array of the missing ingredients if some are missing', () => {
     expect(pantry.provideMissingIngredients(recipe2)).to.deep.equal([
-      {'id': 11477, 'amount': 1}, {'id': 11297, 'amount': 1}, {'id': 1082047, 'amount': 1}
+      "Ingredient ID - 11477: Amount - 1", "Ingredient ID - 11297: Amount - 1", "Ingredient ID - 1082047: Amount - 1" 
     ])
   });
-
 });

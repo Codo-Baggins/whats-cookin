@@ -1,26 +1,9 @@
-
-//const userData = require('../data/users');
-
-// const Recipe = require("./Recipe");
-
-//const { filter } = require("../data/users");
-
-//const recipeData = require("../data/recipes");
-
-//const recipeData = require("../data/recipes");
-
-//const recipeData = require("../data/recipes");
-//const Recipe = require("./Recipe");
-
-//let usersData = require("../data/users");
-
 //~~~~~~~~~~~~~~~~~~QUERY SELECTORS~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 const usersDropDown = document.querySelector('.users');
 
 const recipesSection = document.querySelector('.displayed-recipes');
 
-//const selcted = document.querySelector('.selected');
 const titleDisplay = document.querySelector('.title-display');
 
 const tagsDropDown = document.querySelector('.tags');
@@ -55,17 +38,11 @@ function handleLoad() {
   loadUsers();
   createRecipes(recipeData);
 }
-//~~~~~~~~~~~~~~~~~~~~~~~
-//const Pantry = require('../src/Pantry');
-// const User = require('../src/User');
-// const Recipe = require('../src/Recipe');
-//const usersData = require('../data/users');
 
 let currentUser, currentPantry;
 
 function createUsers() {
   let userNames = usersData.map(user => {
-    //console.log(user.name)
     return user.name;
   })
   return userNames;
@@ -78,14 +55,13 @@ function loadUsers() {
   })
 }
 
-//update display to show name
-// instantiate user based on name
 function selectUser(event) {
   let userName = event.target.value;
   titleDisplay.innerText = `What's Cookin, ${userName}?`;
   usersData.forEach(user => {
     if (userName === user.name) {
       currentUser = new User(user.id, user.name, user.pantry)
+      currentPantry = new Pantry (currentUser.pantry);
     }
   })
   loadTags();
@@ -115,7 +91,7 @@ function selectTag(event) {
   let selectedTag = event.target.value;
   let filteredRecipes = currentUser.filterRecipesByTag(selectedTag, recipeData);
   clearDisplayedRecipes();
-  return displayRecipes(filteredRecipes);
+  return displayRecipes(filteredRecipes, recipesSection);
 }
 
 function createRecipes(recipeList) {
@@ -128,12 +104,9 @@ function createRecipes(recipeList) {
 }
 
 function displayRecipes(recipeList, recipeLocation) {
-  //let recipes = createRecipes(recipeList);
-  //console.log(recipes);
   recipeList.forEach(recipe => {
-    let userHasIngredients = false;
-    //let userHasIngredients = currentPantry.checkForRequiredIngredients(recipe, user)
-    let recipeClasses = `recipe ${userHasIngredients && "recipeHasIngredients"}`
+    let userHasIngredients = currentPantry.checkForRequiredIngredients(recipe, currentUser)
+    let recipeClasses = `recipe ${userHasIngredients && "recipe-has-ingredients"}`
 
     recipeLocation.innerHTML += `
     <div class="${recipeClasses}">
@@ -166,12 +139,11 @@ function clearDisplayedRecipes() {
 }
 
 function searchRecipes() {
-  //const searchInput = document.querySelector('.search-fields').value;
   let filteredRecipesByName = currentUser.searchRecipesByName(searchInput.value, recipeData)
   let filteredRecipesByIngredient = currentUser.searchRecipesByIngredient(searchInput.value, recipeData)
   clearDisplayedRecipes();
-  displayRecipes(filteredRecipesByName);
-  displayRecipes(filteredRecipesByIngredient)
+  displayRecipes(filteredRecipesByIngredient, recipesSection)
+  return displayRecipes(filteredRecipesByName, recipesSection);
 }
 
 function bindToCookToggleButtons() {
@@ -180,9 +152,7 @@ function bindToCookToggleButtons() {
     button.addEventListener('click', e => {
       let recipeIdToToggle = e.target.getAttribute("data-to-cook-id")
       e.target.classList.toggle('selected');
-      console.log('Recipe has been toggled', recipeIdToToggle)
       toggleRecipeFromToCook(recipeIdToToggle);
-      console.log('to cook recipes', currentUser.recipesToCook)
     })
   })
 }
@@ -201,9 +171,7 @@ function bindFavoriteToggleButtons() {
     button.addEventListener('click', e => {
       let recipeIdToToggle = e.target.getAttribute("data-favorite-id")
       e.target.classList.toggle('selected');
-      console.log('Recipe has been toggled', recipeIdToToggle)
       toggleRecipeFromFavorites(recipeIdToToggle);
-      console.log('Favorite recipes', currentUser.favoriteRecipes)
     })
   })
 }
@@ -225,36 +193,15 @@ function displayFavoriteRecipes() {
       }
     })
   })
-  showFavoriteListSection();
+  changeClassList(favoritesSection, recipesSection, toCookSection, recipeSection);
   displayRecipes(userFavorites, favoritesSection);
 }
 
-function showRecipeListSection() {
-  favoritesSection.classList.add('hidden');
-  recipesSection.classList.remove('hidden');
-  toCookSection.classList.add('hidden');
-  recipeSection.classList.add('hidden');
-}
-
-function showFavoriteListSection() {
-  favoritesSection.classList.remove('hidden');
-  recipesSection.classList.add('hidden');
-  toCookSection.classList.add('hidden');
-  recipeSection.classList.add('hidden');
-}
-
-function showToCookSection() {
-  favoritesSection.classList.add('hidden');
-  recipesSection.classList.add('hidden');
-  toCookSection.classList.remove('hidden');
-  recipeSection.classList.add('hidden');
-}
-
-function showRecipeSection() {
-  favoritesSection.classList.add('hidden');
-  recipesSection.classList.add('hidden');
-  toCookSection.classList.add('hidden');
-  recipeSection.classList.remove('hidden');
+function changeClassList(section1, section2, section3, section4) {
+  section1.classList.remove('hidden');
+  section2.classList.add('hidden');
+  section3.classList.add('hidden');
+  section4.classList.add('hidden');
 }
 
 function displayToCookRecipes() {
@@ -266,7 +213,7 @@ function displayToCookRecipes() {
       }
     })
   })
-  showToCookSection();
+  changeClassList(toCookSection, recipeSection, favoritesSection, recipesSection,);
   displayRecipes(userToCook, toCookSection);
 }
 
@@ -279,10 +226,12 @@ function bindShowRecipeButtons() {
       let currentRecipe = new Recipe(recipe.id, recipe.image, recipe.ingredients, recipe.instructions, recipe.name, recipe.tags);
       recipeSection.innerHTML = `
         <p>${currentRecipe.name}</p>
-        <p>${currentRecipe.returnInstructions()}</p>
+        <p>Instructions: ${currentRecipe.returnInstructions()}</p>
+        <p>Estimated cost: $${currentRecipe.calculateRecipeCost(currentRecipe.ingredients, ingredientsData)}</p>
+        <p> User Can Make: ${currentPantry.checkForRequiredIngredients(currentRecipe)}</p>
+        <p> Missing Ingredients: ${currentPantry.provideMissingIngredients(currentRecipe)}</p>
       `
-      console.log(currentRecipe.returnInstructions())
-      showRecipeSection();
+      changeClassList(recipeSection, favoritesSection, recipesSection, toCookSection);
     })
   })
 }
