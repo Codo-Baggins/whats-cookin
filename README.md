@@ -23,16 +23,23 @@
 
 3. Can't find what you are looking for?  Type in a recipe or ingredient directly into the search bar on the left side of the page.  
 
+![Choose user, tags, and search](/assets/user-tags-search.gif)<br />
+
 4. Found some mouth-watering recipes?  Add them to your favorites by clicking on the heart in the lower right hand corner of the recipe!  
 
 5. Don't have time to cook all of these recipes now?  It's okay!  We got you covered.  Go ahead and click on the "to-cook" icon in the lower left hand corner of the recipe to add it to to your list of recipes to cook later on.  
+
+![Choose favorites and to Cook](/assets/favorite-to-cook.gif)<br />
 
 6. Back from your long coding session and need some food to recharge your batteries?  Let's take a look at some of those recipes that we bookmarked earlier.  Click on the "Recipes to Cook" button in the top left corner of the webpage and select a recipe that sounds appetizing by clicking on the name of the recipe.  
 
 7. Oh, no! the recipe says you don't have enough of the correct ingredients in order to cook the recipe.  Let's go back to the "Recipes To Cook" section and select a recipe with a bright green border around it.  
 
+![Missing ingredients](/assets/missing-ingredient.gif)<br />
+
 8.  Great, now that we have chosen a recipe that we have enough ingredients for, lets get cookin'! 
 
+![Contains ingredients](/assets/contains-ingredient.gif)<br />
 
 # Future Iterations
 
