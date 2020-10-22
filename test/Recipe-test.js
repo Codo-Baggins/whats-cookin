@@ -69,7 +69,6 @@ describe('User', () => {
       }
     }]);
   });
-// maybe test for keys within the objects
 
   it('should have a list of instructions', () => {
     expect(recipe.instructions).to.deep.equal([{
@@ -96,7 +95,6 @@ describe('User', () => {
     ]);
   });
 
-  // to be updated
   it('should calculate the cost of the recipe', () => {
     const ingredientsCost = recipe.calculateRecipeCost(recipe.ingredients, ingredientsData)
 

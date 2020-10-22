@@ -158,3 +158,12 @@ main {
 .add-to-favorites.selected {
     background-image: url(../assets/red-heart.svg);
 }
+
+.recipe-has-ingredients {
+    box-shadow: 0 10px 20px green;
+    border-color: rgb(76, 218, 76);
+}
+
+.hidden {
+    display: none;
+}

@@ -3,11 +3,10 @@ const expect = chai.expect;
 
 const User = require('../src/User');
 const Recipe = require('../src/Recipe');
-const recipeData = require('../data/recipes');
-const ingredientsData = require('../data/ingredients');
 
 describe('User', () => {
     let user, recipe, recipe2;
+
     beforeEach(function() {
         user = new User(10010, 'Aaron', ['cheese', 'crackers']);
         recipe = new Recipe(17, 'string of image', [{
