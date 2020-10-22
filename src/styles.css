@@ -5,7 +5,7 @@
     font-size: 22px; 
 }
 
-select, button, {
+select, button {
     cursor: pointer;
 }
 
@@ -15,14 +15,8 @@ select, button, {
     justify-content: space-between;
     width: 100% ;
     text-shadow: ;
-    color:  #17E9E0;
-    /* background-color: #393939; */
-    /* background-image: linear-gradient(135deg, transparent, #44318D,  #F172A1, #F0EBF4, #44318D, #84CCEB); */
+    color:  #17E9E0;    
     background-image: linear-gradient(135deg, black,  #393939, gray, white);
-    /* , gray repeating-linear-gradient(45deg, transparent, transparent 35px, */
-
-    /* rgba(255, 255, 255, 0.5) 35px, rgba(255, 255, 255, 0.5) 70px); */
-
     border-bottom-left-radius: 20px;
     border-top-left-radius: 20px;
 }
@@ -34,7 +28,6 @@ nav {
 
 h1 {
     font-size: 4em;
-    /* background-color: #393939; */
     padding: 30px
 }
 
@@ -57,18 +50,17 @@ h1 {
 
 /* ~~~~~~~~~~~~~~~~~~~ MAIN SECTION ~~~~~~~~~~~~~~~~~~ */
 body{
-    /* background-color: #bcc0ca; */
-    /* background: linear-gradient(90deg, transparent, pink, #cccccc, white),  #9050ad 
-    repeating-linear-gradient(45deg, transparent, transparent 35px,#44318D 35px, #9050ad 70px); */
-    background: linear-gradient(90deg, transparent, pink, #cccccc),  #9050ad 
-    repeating-linear-gradient(45deg, transparent, transparent 35px);
+    background: linear-gradient(120deg, #E7BB41,  #D3D0CB,#96D0C2,#E7BB41,#19463d, #D3D0CB, #E7BB41);
 }
 
 main {
     display: flex;
     flex-direction: column;
-    /* background-color: #F78888; */
     justify-content: space-evenly;
+}
+
+p {
+    font-size: 30px;
 }
 
 .search-fields {
@@ -83,7 +75,8 @@ main {
     flex-direction: column;
     height: 20em;
     width: 15em;
-    border: solid #17E9E0 0.4em;
+    border: 0.4em solid;
+    border-image: linear-gradient(90deg, rgb(163, 3, 3), rgb(201, 90, 108)) 5;
     border-radius: 10px;
     margin-bottom: 30px;
     padding: 10px;
@@ -121,16 +114,6 @@ main {
     display: none;
 }
 
-/* .to-cook {
-    height: 2em;
-    width: 2em;
-}
-
-.favorites {
-    height: 2em;
-    width: 2em;
-} */
-
 .add-to-recipe-book {
     width: 2em;
     height: 2em;
@@ -162,6 +145,19 @@ main {
 .recipe-has-ingredients {
     box-shadow: 0 10px 20px green;
     border-color: rgb(76, 218, 76);
+    border-image: none;
+}
+
+.favorite-section {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.to-cook-section {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
 }
 
 .hidden {
