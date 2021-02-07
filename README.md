@@ -1,4 +1,4 @@
-# What's Cookin'?
+# [What's Cookin'?](https://codo-baggins.github.io/whats-cookin/)
 
 - Contributors: 
   - Joe Lopez
